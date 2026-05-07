@@ -3,6 +3,7 @@
 import { Box } from '@mui/material';
 import { Header } from '@/components/landing/header';
 import { HeroSection } from '@/components/landing/hero-section';
+import { VideoDemo } from '@/components/landing/video-demo';
 import { ComparisonDemo } from '@/components/landing/comparison-demo';
 import { HowItWorks } from '@/components/landing/how-it-works';
 import { FeaturesSection } from '@/components/landing/features-section';
@@ -25,6 +26,7 @@ export default function LandingPage() {
     >
       <Header />
       <HeroSection />
+      <VideoDemo />
       <ComparisonDemo />
       <HowItWorks />
       <FeaturesSection />

@@ -1,12 +1,19 @@
 'use client';
 
 import { Box, Container, Typography, Chip } from '@mui/material';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef } from 'react';
 import { GlassCard } from './glass-card';
 import { TrendingDown, LocalOffer } from '@mui/icons-material';
+import { useThemeMode } from '@/components/theme-provider';
 
 const MotionBox = motion.create(Box);
+
+// Theme-specific product screenshots
+const productScreenshots = {
+  light: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.12%20AM%20%281%29-Gtk0HzECsa0RCMiepbSoJcSeivM0gT.jpeg',
+  dark: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.14%20AM%20%281%29-2xFXi3eaFWE5B9xY3IaC7OT5SID9en.jpeg',
+};
 
 interface PriceBarProps {
   app: string;
@@ -85,6 +92,9 @@ function PriceBar({ app, price, maxPrice, color, delay, isCheapest }: PriceBarPr
 
 // Floating phone with product detail screenshot
 function FloatingProductPhone() {
+  const { mode } = useThemeMode();
+  const screenshotUrl = productScreenshots[mode];
+
   return (
     <MotionBox
       initial={{ opacity: 0, x: 50, rotateY: -20 }}
@@ -99,12 +109,25 @@ function FloatingProductPhone() {
         width: { xs: 180, md: 220 },
         height: { xs: 360, md: 440 },
         borderRadius: '32px',
-        background: 'linear-gradient(145deg, #2a2a4a 0%, #1a1a2e 100%)',
-        border: '6px solid #3a3a5a',
-        boxShadow: `
+        background: (theme) =>
+          theme.palette.mode === 'dark'
+            ? 'linear-gradient(145deg, #2a2a4a 0%, #1a1a2e 100%)'
+            : 'linear-gradient(145deg, #ffffff 0%, #f5f5fa 100%)',
+        border: (theme) =>
+          theme.palette.mode === 'dark'
+            ? '6px solid #3a3a5a'
+            : '6px solid #e0e0e8',
+        boxShadow: (theme) =>
+          theme.palette.mode === 'dark'
+            ? `
           0 40px 80px rgba(0, 0, 0, 0.5),
           0 0 50px rgba(167, 139, 250, 0.25),
           inset 0 1px 0 rgba(255, 255, 255, 0.1)
+        `
+            : `
+          0 40px 80px rgba(0, 0, 0, 0.12),
+          0 0 50px rgba(34, 211, 238, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.8)
         `,
         position: 'relative',
         overflow: 'hidden',
@@ -129,7 +152,7 @@ function FloatingProductPhone() {
         }}
       />
 
-      {/* Screen Content - Product Detail Screenshot */}
+      {/* Screen Content - Product Detail Screenshot with Crossfade */}
       <Box
         sx={{
           position: 'absolute',
@@ -141,17 +164,24 @@ function FloatingProductPhone() {
           overflow: 'hidden',
         }}
       >
-        <Box
-          component="img"
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2UCV47bPpRyiYsYCA5cYrUgzS1hUBD.png"
-          alt="Product Details"
-          sx={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-          }}
-        />
+        <AnimatePresence mode="wait">
+          <MotionBox
+            key={mode}
+            component="img"
+            src={screenshotUrl}
+            alt="Product Details"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
+          />
+        </AnimatePresence>
       </Box>
 
       {/* Screen Glare Effect */}
@@ -178,7 +208,10 @@ function FloatingProductPhone() {
           width: '150%',
           height: '150%',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%)',
+          background: (theme) =>
+            theme.palette.mode === 'dark'
+              ? 'radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%)',
           filter: 'blur(40px)',
           zIndex: -1,
           pointerEvents: 'none',

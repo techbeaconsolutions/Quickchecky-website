@@ -1,42 +1,69 @@
 'use client';
 
 import { Box, Container, Typography } from '@mui/material';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef } from 'react';
+import { useThemeMode } from '@/components/theme-provider';
 
 const MotionBox = motion.create(Box);
 
-const screenshots = [
-  {
-    title: 'Home Screen',
-    description: 'Search & compare prices',
-    imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2010.19.14%20AM-2falLn1dbhznKy4hGwbDcHVm3banUW.jpeg',
-  },
-  {
-    title: 'Set Location',
-    description: 'Auto-detect or enter pincode',
-    imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-gBqWuU1xinPcniVbdbQUpePjPqVVcY.png',
-  },
-  {
-    title: 'Product Details',
-    description: 'Best deals at a glance',
-    imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2UCV47bPpRyiYsYCA5cYrUgzS1hUBD.png',
-  },
-  {
-    title: 'Profile',
-    description: 'Dark & light mode',
-    imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design-V9F5djmFgUsDyIjFbKnIUGGbIrsfUL.png',
-  },
-];
+// Theme-specific screenshots
+const screenshotsByTheme = {
+  light: [
+    {
+      title: 'Home Screen',
+      description: 'Search & compare prices',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.06%20AM-33EupBaWZGzGi7gtdAGZbdAsd8Hkeu.jpeg',
+    },
+    {
+      title: 'Set Location',
+      description: 'Auto-detect or enter pincode',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.07%20AM-BS5XMWYT4l81PVJCRdCA6RlpCc2O07.jpeg',
+    },
+    {
+      title: 'Best Deals',
+      description: 'Find the cheapest option',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.10%20AM%20%281%29-aV1hBs7IofY9MU4fKSlNIdjlUTkrdI.jpeg',
+    },
+    {
+      title: 'Product Grid',
+      description: 'Compare all products',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.12%20AM-eab3VCj6ztDExV0MPQkLxoVdTUbNfq.jpeg',
+    },
+  ],
+  dark: [
+    {
+      title: 'Home Screen',
+      description: 'Search & compare prices',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.12%20AM%20%282%29-uS3p005iNBhnDpcWBPaAXt8k5h5P0q.jpeg',
+    },
+    {
+      title: 'Set Location',
+      description: 'Auto-detect or enter pincode',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.13%20AM-eMJDeGAoR0jcKqEcEMnX7GHXOfqh2c.jpeg',
+    },
+    {
+      title: 'Best Deals',
+      description: 'Find the cheapest option',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.13%20AM%20%283%29-Wzw0NuBvKTMyqABThlb2PG1S1plSuw.jpeg',
+    },
+    {
+      title: 'Product Grid',
+      description: 'Compare all products',
+      imageUrl: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-07%20at%2011.38.14%20AM-ITVkZpS2Yh6JXWpSPFNCfO5u2LlQim.jpeg',
+    },
+  ],
+};
 
 interface PhoneFrameProps {
   title: string;
   description: string;
   imageUrl: string;
   index: number;
+  themeMode: 'light' | 'dark';
 }
 
-function PhoneFrame({ title, description, imageUrl, index }: PhoneFrameProps) {
+function PhoneFrame({ title, description, imageUrl, index, themeMode }: PhoneFrameProps) {
   return (
     <MotionBox
       initial={{ opacity: 0, y: 60, rotateY: -15 }}
@@ -61,12 +88,25 @@ function PhoneFrame({ title, description, imageUrl, index }: PhoneFrameProps) {
           width: { xs: 180, sm: 200, md: 220 },
           height: { xs: 360, sm: 400, md: 440 },
           borderRadius: '32px',
-          background: 'linear-gradient(145deg, #2a2a4a 0%, #1a1a2e 100%)',
-          border: '6px solid #3a3a5a',
-          boxShadow: `
+          background: (theme) =>
+            theme.palette.mode === 'dark'
+              ? 'linear-gradient(145deg, #2a2a4a 0%, #1a1a2e 100%)'
+              : 'linear-gradient(145deg, #ffffff 0%, #f5f5fa 100%)',
+          border: (theme) =>
+            theme.palette.mode === 'dark'
+              ? '6px solid #3a3a5a'
+              : '6px solid #e0e0e8',
+          boxShadow: (theme) =>
+            theme.palette.mode === 'dark'
+              ? `
             0 30px 60px rgba(0, 0, 0, 0.4),
             0 0 40px rgba(167, 139, 250, 0.2),
             inset 0 1px 0 rgba(255, 255, 255, 0.1)
+          `
+              : `
+            0 30px 60px rgba(0, 0, 0, 0.1),
+            0 0 40px rgba(34, 211, 238, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8)
           `,
           position: 'relative',
           overflow: 'hidden',
@@ -89,7 +129,7 @@ function PhoneFrame({ title, description, imageUrl, index }: PhoneFrameProps) {
           }}
         />
 
-        {/* Screen Content - Real Screenshot */}
+        {/* Screen Content - Real Screenshot with Crossfade */}
         <Box
           sx={{
             position: 'absolute',
@@ -101,17 +141,24 @@ function PhoneFrame({ title, description, imageUrl, index }: PhoneFrameProps) {
             overflow: 'hidden',
           }}
         >
-          <Box
-            component="img"
-            src={imageUrl}
-            alt={title}
-            sx={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'top',
-            }}
-          />
+          <AnimatePresence mode="wait">
+            <MotionBox
+              key={`${themeMode}-${index}`}
+              component="img"
+              src={imageUrl}
+              alt={title}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              sx={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'top',
+              }}
+            />
+          </AnimatePresence>
         </Box>
 
         {/* Screen Glare Effect */}
@@ -138,7 +185,10 @@ function PhoneFrame({ title, description, imageUrl, index }: PhoneFrameProps) {
             width: '120%',
             height: '120%',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%)',
+            background: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%)'
+                : 'radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 70%)',
             filter: 'blur(30px)',
             zIndex: -1,
             pointerEvents: 'none',
@@ -174,6 +224,8 @@ function PhoneFrame({ title, description, imageUrl, index }: PhoneFrameProps) {
 export function ScreenshotsSection() {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  const { mode } = useThemeMode();
+  const screenshots = screenshotsByTheme[mode];
 
   return (
     <Box
@@ -194,7 +246,10 @@ export function ScreenshotsSection() {
           transform: 'translate(-50%, -50%)',
           width: '100%',
           height: 600,
-          background: 'radial-gradient(ellipse, rgba(34, 211, 238, 0.1) 0%, transparent 70%)',
+          background: (theme) =>
+            theme.palette.mode === 'dark'
+              ? 'radial-gradient(ellipse, rgba(34, 211, 238, 0.1) 0%, transparent 70%)'
+              : 'radial-gradient(ellipse, rgba(167, 139, 250, 0.08) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -235,7 +290,7 @@ export function ScreenshotsSection() {
             variant="body1"
             sx={{ color: 'text.secondary', maxWidth: 500, mx: 'auto' }}
           >
-            A sleek, intuitive interface designed for effortless price comparison
+            A sleek, intuitive interface designed for effortless price comparison - available in both light and dark modes
           </Typography>
         </MotionBox>
 
@@ -251,11 +306,12 @@ export function ScreenshotsSection() {
         >
           {screenshots.map((screen, idx) => (
             <PhoneFrame
-              key={idx}
+              key={`${mode}-${idx}`}
               title={screen.title}
               description={screen.description}
               imageUrl={screen.imageUrl}
               index={idx}
+              themeMode={mode}
             />
           ))}
         </Box>
