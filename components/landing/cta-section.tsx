@@ -1,69 +1,182 @@
 'use client';
 
 import { Box, Container, Typography, Button, Stack } from '@mui/material';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Apple, Android, ArrowForward } from '@mui/icons-material';
+import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { Apple, Android, ArrowForward, Star, Download, TrendingUp } from '@mui/icons-material';
+import { useThemeContext } from '../theme-provider';
 
 const MotionBox = motion.create(Box);
 
+// Floating 3D element
+function FloatingElement({ children, delay = 0, duration = 4, range = 20 }: {
+  children: React.ReactNode;
+  delay?: number;
+  duration?: number;
+  range?: number;
+}) {
+  return (
+    <motion.div
+      animate={{
+        y: [-range, range, -range],
+        rotateZ: [-3, 3, -3],
+      }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: 'easeInOut',
+        delay,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export function CTASection() {
+  const { isDark } = useThemeContext();
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springConfig = { stiffness: 150, damping: 30 };
+  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [5, -5]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-5, 5]), springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    mouseX.set(e.clientX - centerX);
+    mouseY.set(e.clientY - centerY);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
     <Box
       component="section"
       ref={containerRef}
       sx={{
-        py: { xs: 10, md: 16 },
+        py: { xs: 12, md: 20 },
         position: 'relative',
         overflow: 'hidden',
+        zIndex: 2,
       }}
     >
-      {/* Background Gradient */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: (theme) =>
-            theme.palette.mode === 'dark'
-              ? 'linear-gradient(180deg, transparent 0%, rgba(167, 139, 250, 0.1) 50%, rgba(34, 211, 238, 0.1) 100%)'
-              : 'linear-gradient(180deg, transparent 0%, rgba(167, 139, 250, 0.05) 50%, rgba(34, 211, 238, 0.05) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
+      {/* 3D Floating decorative elements */}
+      <Box sx={{ position: 'absolute', top: '10%', left: '5%', opacity: 0.6 }}>
+        <FloatingElement delay={0} duration={5}>
+          <Box
+            sx={{
+              width: 60,
+              height: 60,
+              borderRadius: '16px',
+              background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 10px 40px rgba(167, 139, 250, 0.4)',
+              transform: 'rotate(12deg)',
+            }}
+          >
+            <Star sx={{ color: 'white', fontSize: 28 }} />
+          </Box>
+        </FloatingElement>
+      </Box>
 
-      {/* Floating Orbs */}
+      <Box sx={{ position: 'absolute', top: '20%', right: '8%', opacity: 0.6 }}>
+        <FloatingElement delay={1} duration={6}>
+          <Box
+            sx={{
+              width: 50,
+              height: 50,
+              borderRadius: '14px',
+              background: 'linear-gradient(135deg, #34D399 0%, #10B981 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 10px 40px rgba(52, 211, 153, 0.4)',
+              transform: 'rotate(-15deg)',
+            }}
+          >
+            <Download sx={{ color: 'white', fontSize: 24 }} />
+          </Box>
+        </FloatingElement>
+      </Box>
+
+      <Box sx={{ position: 'absolute', bottom: '15%', left: '8%', opacity: 0.6 }}>
+        <FloatingElement delay={0.5} duration={5.5}>
+          <Box
+            sx={{
+              width: 55,
+              height: 55,
+              borderRadius: '15px',
+              background: 'linear-gradient(135deg, #F472B6 0%, #EC4899 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 10px 40px rgba(244, 114, 182, 0.4)',
+              transform: 'rotate(8deg)',
+            }}
+          >
+            <TrendingUp sx={{ color: 'white', fontSize: 26 }} />
+          </Box>
+        </FloatingElement>
+      </Box>
+
+      <Box sx={{ position: 'absolute', bottom: '25%', right: '5%', opacity: 0.6 }}>
+        <FloatingElement delay={1.5} duration={4.5}>
+          <Box
+            sx={{
+              width: 45,
+              height: 45,
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 10px 40px rgba(96, 165, 250, 0.4)',
+              transform: 'rotate(-20deg)',
+            }}
+          >
+            <Android sx={{ color: 'white', fontSize: 22 }} />
+          </Box>
+        </FloatingElement>
+      </Box>
+
+      {/* Animated glow rings */}
       <MotionBox
         animate={{
-          y: [0, -30, 0],
-          opacity: [0.5, 0.8, 0.5],
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.6, 0.3],
         }}
         transition={{
-          duration: 6,
+          duration: 4,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
         sx={{
           position: 'absolute',
-          top: '20%',
-          left: '10%',
-          width: 200,
-          height: 200,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 800,
+          height: 800,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(167, 139, 250, 0.3) 0%, transparent 70%)',
-          filter: 'blur(40px)',
+          border: `2px solid ${isDark ? 'rgba(167, 139, 250, 0.2)' : 'rgba(139, 92, 246, 0.1)'}`,
           pointerEvents: 'none',
         }}
       />
       <MotionBox
         animate={{
-          y: [0, 30, 0],
-          opacity: [0.5, 0.8, 0.5],
+          scale: [1.1, 0.9, 1.1],
+          opacity: [0.2, 0.5, 0.2],
         }}
         transition={{
           duration: 5,
@@ -72,148 +185,225 @@ export function CTASection() {
         }}
         sx={{
           position: 'absolute',
-          bottom: '20%',
-          right: '10%',
-          width: 250,
-          height: 250,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 600,
+          height: 600,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(34, 211, 238, 0.3) 0%, transparent 70%)',
-          filter: 'blur(50px)',
+          border: `2px solid ${isDark ? 'rgba(34, 211, 238, 0.2)' : 'rgba(6, 182, 212, 0.1)'}`,
           pointerEvents: 'none',
         }}
       />
 
       <Container maxWidth="md">
         <MotionBox
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 60, rotateX: 20 }}
+          animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+          transition={{ duration: 0.8, type: 'spring' }}
           sx={{
             textAlign: 'center',
             position: 'relative',
             zIndex: 1,
+            perspective: 1000,
           }}
         >
-          <MotionBox
-            animate={{
-              scale: [1, 1.02, 1],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            sx={{
-              background: (theme) =>
-                theme.palette.mode === 'dark'
-                  ? 'rgba(30, 30, 46, 0.6)'
-                  : 'rgba(255, 255, 255, 0.7)',
-              backdropFilter: 'blur(20px)',
-              borderRadius: '32px',
-              border: (theme) =>
-                `1px solid ${
-                  theme.palette.mode === 'dark'
-                    ? 'rgba(255, 255, 255, 0.1)'
-                    : 'rgba(255, 255, 255, 0.3)'
-                }`,
-              boxShadow: '0 20px 80px rgba(167, 139, 250, 0.2)',
-              p: { xs: 4, md: 8 },
-            }}
+          <motion.div
+            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
           >
-            <Typography
-              variant="h2"
+            <Box
               sx={{
-                mb: 2,
-                color: 'text.primary',
+                background: isDark
+                  ? 'linear-gradient(135deg, rgba(30, 30, 46, 0.8) 0%, rgba(20, 20, 35, 0.9) 100%)'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)',
+                backdropFilter: 'blur(40px)',
+                borderRadius: '40px',
+                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(139, 92, 246, 0.1)'}`,
+                boxShadow: isDark
+                  ? '0 40px 100px rgba(167, 139, 250, 0.2), 0 0 0 1px rgba(255,255,255,0.05) inset'
+                  : '0 40px 100px rgba(139, 92, 246, 0.15), 0 0 0 1px rgba(255,255,255,0.5) inset',
+                p: { xs: 5, md: 10 },
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '1px',
+                  background: 'linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.5), transparent)',
+                },
               }}
             >
-              Start{' '}
+              {/* Inner glow */}
               <Box
-                component="span"
                 sx={{
-                  background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                  position: 'absolute',
+                  top: -100,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 400,
+                  height: 200,
+                  background: 'radial-gradient(ellipse, rgba(167, 139, 250, 0.3) 0%, transparent 70%)',
+                  filter: 'blur(40px)',
+                  pointerEvents: 'none',
+                }}
+              />
+
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
+              >
+                <Box
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    px: 3,
+                    py: 1,
+                    borderRadius: 3,
+                    background: isDark 
+                      ? 'rgba(52, 211, 153, 0.15)'
+                      : 'rgba(16, 185, 129, 0.1)',
+                    border: `1px solid rgba(52, 211, 153, 0.3)`,
+                    mb: 4,
+                  }}
+                >
+                  <Star sx={{ fontSize: 18, color: '#34D399' }} />
+                  <Typography variant="body2" sx={{ color: '#34D399', fontWeight: 600 }}>
+                    Rated 4.8 on App Store
+                  </Typography>
+                </Box>
+              </motion.div>
+
+              <Typography
+                variant="h2"
+                sx={{
+                  mb: 3,
+                  color: 'text.primary',
+                  fontWeight: 800,
+                  position: 'relative',
                 }}
               >
-                Saving Today
+                Start{' '}
+                <Box
+                  component="span"
+                  sx={{
+                    background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 50%, #34D399 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradient 4s ease infinite',
+                    '@keyframes gradient': {
+                      '0%': { backgroundPosition: '0% 50%' },
+                      '50%': { backgroundPosition: '100% 50%' },
+                      '100%': { backgroundPosition: '0% 50%' },
+                    },
+                  }}
+                >
+                  Saving Today
+                </Box>
+              </Typography>
+
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'text.secondary',
+                  fontWeight: 400,
+                  mb: 5,
+                  maxWidth: 500,
+                  mx: 'auto',
+                  lineHeight: 1.8,
+                }}
+              >
+                Download Quick Commerce Compare and never overpay for groceries again. 
+                Join 50,000+ smart shoppers across India.
+              </Typography>
+
+              <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                spacing={3}
+                justifyContent="center"
+              >
+                <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    startIcon={<Apple />}
+                    endIcon={<ArrowForward />}
+                    sx={{
+                      background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
+                      color: 'white',
+                      px: 5,
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      borderRadius: 3,
+                      boxShadow: '0 10px 40px rgba(167, 139, 250, 0.4)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)',
+                        boxShadow: '0 20px 60px rgba(167, 139, 250, 0.5)',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    Download for iOS
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    startIcon={<Android />}
+                    endIcon={<ArrowForward />}
+                    sx={{
+                      background: 'linear-gradient(135deg, #34D399 0%, #10B981 100%)',
+                      color: 'white',
+                      px: 5,
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      borderRadius: 3,
+                      boxShadow: '0 10px 40px rgba(52, 211, 153, 0.4)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                        boxShadow: '0 20px 60px rgba(52, 211, 153, 0.5)',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    Download for Android
+                  </Button>
+                </motion.div>
+              </Stack>
+
+              <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap' }}>
+                {[
+                  { label: 'Free Download', icon: Download },
+                  { label: 'No Ads', icon: Star },
+                  { label: 'Save 30%+', icon: TrendingUp },
+                ].map((item, index) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <item.icon sx={{ fontSize: 18, color: 'primary.main' }} />
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {item.label}
+                      </Typography>
+                    </Box>
+                  </motion.div>
+                ))}
               </Box>
-            </Typography>
-
-            <Typography
-              variant="h6"
-              sx={{
-                color: 'text.secondary',
-                fontWeight: 400,
-                mb: 4,
-                maxWidth: 500,
-                mx: 'auto',
-                lineHeight: 1.7,
-              }}
-            >
-              Download Quick Commerce Compare and never overpay for groceries again. 
-              Join 50,000+ smart shoppers across India.
-            </Typography>
-
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<Apple />}
-                endIcon={<ArrowForward />}
-                sx={{
-                  background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
-                  color: 'white',
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1rem',
-                  '&:hover': {
-                    background: 'linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 15px 50px rgba(167, 139, 250, 0.5)',
-                  },
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                Download for iOS
-              </Button>
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<Android />}
-                endIcon={<ArrowForward />}
-                sx={{
-                  background: 'linear-gradient(135deg, #34D399 0%, #10B981 100%)',
-                  color: 'white',
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1rem',
-                  '&:hover': {
-                    background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 15px 50px rgba(52, 211, 153, 0.5)',
-                  },
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                Download for Android
-              </Button>
-            </Stack>
-
-            <Typography
-              variant="body2"
-              sx={{
-                color: 'text.secondary',
-                mt: 3,
-              }}
-            >
-              Free to download. No hidden fees.
-            </Typography>
-          </MotionBox>
+            </Box>
+          </motion.div>
         </MotionBox>
       </Container>
     </Box>

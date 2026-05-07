@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { Box } from '@mui/material';
 import { Header } from '@/components/landing/header';
 import { HeroSection } from '@/components/landing/hero-section';
@@ -11,29 +12,46 @@ import { ScreenshotsSection } from '@/components/landing/screenshots-section';
 import { TrustSection } from '@/components/landing/trust-section';
 import { CTASection } from '@/components/landing/cta-section';
 import { Footer } from '@/components/landing/footer';
+import { AnimatedBackground } from '@/components/landing/animated-background';
+import { MouseFollower } from '@/components/landing/mouse-follower';
+
+// Dynamic import for 3D scene to avoid SSR issues
+const ThreeDBackground = dynamic(
+  () => import('@/components/landing/3d-scene').then((mod) => mod.ThreeDBackground),
+  { ssr: false }
+);
 
 export default function LandingPage() {
   return (
     <Box
       sx={{
         minHeight: '100vh',
-        background: (theme) =>
-          theme.palette.mode === 'dark'
-            ? 'linear-gradient(180deg, #0A0A0F 0%, #111118 100%)'
-            : 'linear-gradient(180deg, #FAFAFA 0%, #F1F5F9 100%)',
         overflowX: 'hidden',
+        position: 'relative',
       }}
     >
-      <Header />
-      <HeroSection />
-      <VideoDemo />
-      <ComparisonDemo />
-      <HowItWorks />
-      <FeaturesSection />
-      <ScreenshotsSection />
-      <TrustSection />
-      <CTASection />
-      <Footer />
+      {/* Animated gradient background */}
+      <AnimatedBackground />
+      
+      {/* 3D floating elements */}
+      <ThreeDBackground />
+      
+      {/* Mouse follower effect */}
+      <MouseFollower />
+      
+      {/* Main content */}
+      <Box sx={{ position: 'relative', zIndex: 2 }}>
+        <Header />
+        <HeroSection />
+        <VideoDemo />
+        <ComparisonDemo />
+        <HowItWorks />
+        <FeaturesSection />
+        <ScreenshotsSection />
+        <TrustSection />
+        <CTASection />
+        <Footer />
+      </Box>
     </Box>
   );
 }
