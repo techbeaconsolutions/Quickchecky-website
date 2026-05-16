@@ -84,16 +84,17 @@ function StepPhone({ screenshotUrl, index, themeMode }: StepPhoneProps) {
       }}
     >
       {/* Notch */}
+      {/* Small Camera Dot */}
       <Box
         sx={{
           position: 'absolute',
-          top: 4,
+          top: 14,
           left: '50%',
           transform: 'translateX(-50%)',
-          width: 40,
+          width: 12,
           height: 12,
-          borderRadius: '8px',
-          background: '#0a0a0f',
+          borderRadius: '50%',
+          background: '#1a1a1a',
           zIndex: 10,
         }}
       />
@@ -265,10 +266,10 @@ export function HowItWorks() {
               >
                 {/* Mini Phone Preview */}
                 <Box sx={{ mb: 3 }}>
-                  <StepPhone 
-                    screenshotUrl={screenshots[idx]} 
-                    index={idx} 
-                    themeMode={mode} 
+                  <StepPhone
+                    screenshotUrl={screenshots[idx]}
+                    index={idx}
+                    themeMode={mode}
                   />
                 </Box>
 
@@ -290,13 +291,12 @@ export function HowItWorks() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     mb: 2,
-                    boxShadow: `0 8px 30px ${
-                      idx === 0
+                    boxShadow: `0 8px 30px ${idx === 0
                         ? 'rgba(167, 139, 250, 0.4)'
                         : idx === 1
-                        ? 'rgba(34, 211, 238, 0.4)'
-                        : 'rgba(52, 211, 153, 0.4)'
-                    }`,
+                          ? 'rgba(34, 211, 238, 0.4)'
+                          : 'rgba(52, 211, 153, 0.4)'
+                      }`,
                   }}
                 >
                   <step.icon sx={{ fontSize: 28, color: 'white' }} />

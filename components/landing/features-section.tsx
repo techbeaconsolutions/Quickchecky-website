@@ -19,7 +19,7 @@ const features = [
   {
     icon: Bolt,
     title: 'Lightning Fast',
-    description: 'Get instant price comparisons in under a second',
+    description: 'Get instant price comparisons in secondes',
     gradient: 'linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%)',
     shadowColor: 'rgba(255, 217, 61, 0.3)',
   },
@@ -36,27 +36,6 @@ const features = [
     description: 'Compare across Blinkit, Zepto & Instamart',
     gradient: 'linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%)',
     shadowColor: 'rgba(34, 211, 238, 0.3)',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Price History',
-    description: 'Track price trends over time for better deals',
-    gradient: 'linear-gradient(135deg, #34D399 0%, #10B981 100%)',
-    shadowColor: 'rgba(52, 211, 153, 0.3)',
-  },
-  {
-    icon: Notifications,
-    title: 'Price Alerts',
-    description: 'Get notified when prices drop on your favorites',
-    gradient: 'linear-gradient(135deg, #F472B6 0%, #EC4899 100%)',
-    shadowColor: 'rgba(244, 114, 182, 0.3)',
-  },
-  {
-    icon: Security,
-    title: 'Secure & Private',
-    description: 'Your shopping data stays private and secure',
-    gradient: 'linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)',
-    shadowColor: 'rgba(96, 165, 250, 0.3)',
   },
 ];
 

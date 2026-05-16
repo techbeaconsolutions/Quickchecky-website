@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { useThemeMode } from '@/components/theme-provider';
 
 const MotionBox = motion.create(Box);
+const MotionImg = motion.create('img');
 
 // Theme-specific screenshots
 const screenshotsByTheme = {
@@ -114,20 +115,21 @@ function PhoneFrame({ title, description, imageUrl, index, themeMode }: PhoneFra
           cursor: 'pointer',
         }}
       >
-        {/* Notch */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 6,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 60,
-            height: 18,
-            borderRadius: '10px',
-            background: '#0a0a0f',
-            zIndex: 10,
-          }}
-        />
+       {/* Small Camera Dot */}
+<Box
+  sx={{
+    position: 'absolute',
+    top: 10,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: 10,
+    height: 10,
+    borderRadius: '50%',
+    background: '#0a0a0f',
+    zIndex: 10,
+    boxShadow: '0 0 6px rgba(0,0,0,0.4)',
+  }}
+/>
 
         {/* Screen Content - Real Screenshot with Crossfade */}
         <Box
@@ -142,16 +144,15 @@ function PhoneFrame({ title, description, imageUrl, index, themeMode }: PhoneFra
           }}
         >
           <AnimatePresence mode="wait">
-            <MotionBox
+            <MotionImg
               key={`${themeMode}-${index}`}
-              component="img"
               src={imageUrl}
               alt={title}
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
-              sx={{
+              style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',

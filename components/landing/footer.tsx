@@ -3,14 +3,35 @@
 import { Box, Container, Typography, IconButton, Stack, Link as MuiLink } from '@mui/material';
 import { ShoppingCart, Twitter, Instagram, LinkedIn, GitHub } from '@mui/icons-material';
 
+const footerLinks = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Features', href: '#features' },
+      { label: 'Download', href: '#download' },
+      { label: 'Updates', href: '#trust' },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { label: 'Help Center', href: 'mailto:techbeacon.solutions@gmail.com' },
+      { label: 'Contact', href: 'mailto:techbeacon.solutions@gmail.com' },
+      { label: 'Privacy & Terms', href: '/terms-and-conditions' },
+    ],
+    qrCode: '/qr-code.png',
+  },
+];
+
+const socialLinks = [
+  { label: 'Twitter', href: 'https://twitter.com/quickchecky', Icon: Twitter },
+  { label: 'Instagram', href: 'https://instagram.com/quickchecky', Icon: Instagram },
+  { label: 'LinkedIn', href: 'https://linkedin.com/company/quickchecky', Icon: LinkedIn },
+  { label: 'GitHub', href: 'https://github.com/quickchecky', Icon: GitHub },
+];
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
-
-  const footerLinks = [
-    { title: 'Product', links: ['Features', 'Pricing', 'Download', 'Updates'] },
-    { title: 'Company', links: ['About', 'Blog', 'Careers', 'Press'] },
-    { title: 'Support', links: ['Help Center', 'Contact', 'Privacy', 'Terms'] },
-  ];
 
   return (
     <Box
@@ -18,117 +39,205 @@ export function Footer() {
       sx={{
         py: { xs: 6, md: 8 },
         borderTop: (theme) =>
-          `1px solid ${
-            theme.palette.mode === 'dark'
-              ? 'rgba(255, 255, 255, 0.05)'
-              : 'rgba(0, 0, 0, 0.05)'
+          `1px solid ${theme.palette.mode === 'dark'
+            ? 'rgba(255, 255, 255, 0.05)'
+            : 'rgba(0, 0, 0, 0.05)'
           }`,
       }}
     >
       <Container maxWidth="lg">
-        <Box
+<Box
+  sx={{
+    display: 'grid',
+    gridTemplateColumns: {
+      xs: '1fr',
+      md: '1.8fr 1fr 1fr 0.9fr',
+    },
+    gap: {
+      xs: 5,
+      md: 8,
+    },
+    alignItems: 'start',
+    mb: 6,
+  }}
+>
+  {/* BRAND */}
+  <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 1.2,
+        mb: 2,
+      }}
+    >
+      <img
+        src="/logo.png"
+        alt="Logo"
+        style={{
+          width: 32,
+          height: 32,
+          objectFit: 'contain',
+        }}
+      />
+
+      <Typography
+        variant="h5"
+        sx={{
+          fontWeight: 800,
+          background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        }}
+      >
+        Quickchecky
+      </Typography>
+    </Box>
+
+    <Typography
+      variant="body1"
+      sx={{
+        color: 'text.secondary',
+        lineHeight: 1.8,
+        maxWidth: 360,
+        fontSize: '1rem',
+      }}
+    >
+      Compare grocery prices across Blinkit,
+      Zepto & Instamart. Save money on every
+      order with real-time price comparison.
+    </Typography>
+  </Box>
+
+  {/* PRODUCT */}
+  <Box>
+    <Typography
+      variant="h6"
+      sx={{
+        mb: 2,
+        fontWeight: 700,
+      }}
+    >
+      Product
+    </Typography>
+
+    <Stack spacing={1.5}>
+      {footerLinks[0].links.map((link, i) => (
+        <MuiLink
+          key={i}
+          href={link.href}
+          underline="none"
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: '2fr 1fr 1fr 1fr' },
-            gap: 4,
-            mb: 6,
+            color: 'text.secondary',
+            fontSize: '1rem',
+            transition: '0.2s',
+            width: 'fit-content',
+            '&:hover': {
+              color: 'primary.main',
+            },
           }}
         >
-          {/* Brand */}
-          <Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-              <Box
-                sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 2,
-                  background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <ShoppingCart sx={{ color: 'white', fontSize: 22 }} />
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: 700,
-                  background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                QuickCompare
-              </Typography>
-            </Box>
-            <Typography
-              variant="body2"
-              sx={{ color: 'text.secondary', maxWidth: 280, lineHeight: 1.7, mb: 3 }}
-            >
-              Compare grocery prices across Blinkit, Zepto & Instamart. 
-              Save money on every order with real-time price comparison.
-            </Typography>
-            <Stack direction="row" spacing={1}>
-              {[Twitter, Instagram, LinkedIn, GitHub].map((Icon, idx) => (
-                <IconButton
-                  key={idx}
-                  size="small"
-                  sx={{
-                    color: 'text.secondary',
-                    '&:hover': {
-                      color: 'primary.main',
-                      background: 'rgba(167, 139, 250, 0.1)',
-                    },
-                  }}
-                >
-                  <Icon fontSize="small" />
-                </IconButton>
-              ))}
-            </Stack>
-          </Box>
+          {link.label}
+        </MuiLink>
+      ))}
+    </Stack>
+  </Box>
 
-          {/* Links */}
-          {footerLinks.map((section, idx) => (
-            <Box key={idx}>
-              <Typography
-                variant="body2"
-                sx={{ fontWeight: 600, color: 'text.primary', mb: 2 }}
-              >
-                {section.title}
-              </Typography>
-              <Stack spacing={1.5}>
-                {section.links.map((link, linkIdx) => (
-                  <MuiLink
-                    key={linkIdx}
-                    href="#"
-                    underline="none"
-                    sx={{
-                      color: 'text.secondary',
-                      fontSize: '0.875rem',
-                      '&:hover': {
-                        color: 'primary.main',
-                      },
-                      transition: 'color 0.2s ease',
-                    }}
-                  >
-                    {link}
-                  </MuiLink>
-                ))}
-              </Stack>
-            </Box>
-          ))}
-        </Box>
+  {/* SUPPORT */}
+  <Box>
+    <Typography
+      variant="h6"
+      sx={{
+        mb: 2,
+        fontWeight: 700,
+      }}
+    >
+      Support
+    </Typography>
+
+    <Stack spacing={1.5}>
+      {footerLinks[1].links.map((link, i) => (
+        <MuiLink
+          key={i}
+          href={link.href}
+          underline="none"
+          sx={{
+            color: 'text.secondary',
+            fontSize: '1rem',
+            transition: '0.2s',
+            width: 'fit-content',
+            '&:hover': {
+              color: 'primary.main',
+            },
+          }}
+        >
+          {link.label}
+        </MuiLink>
+      ))}
+    </Stack>
+  </Box>
+
+  {/* QR */}
+  <Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}
+  >
+    <Box
+      sx={{
+        p: 1,
+        borderRadius: '18px',
+        bgcolor: '#fff',
+        boxShadow: '0 8px 30px rgba(0,0,0,0.08)',
+      }}
+    >
+      <img
+        src="/qr-code.png"
+        alt="QR Code"
+        style={{
+          width: 110,
+          height: 110,
+          display: 'block',
+        }}
+      />
+    </Box>
+
+    <Typography
+      variant="body1"
+      sx={{
+        mt: 2,
+        fontWeight: 700,
+        fontSize: '1rem',
+      }}
+    >
+      Download App
+    </Typography>
+
+    <Typography
+      variant="body2"
+      sx={{
+        mt: 0.5,
+        color: 'text.secondary',
+        fontSize: '0.9rem',
+        maxWidth: 160,
+      }}
+    >
+      Scan QR to install
+    </Typography>
+  </Box>
+</Box>
 
         {/* Bottom */}
         <Box
           sx={{
             pt: 4,
             borderTop: (theme) =>
-              `1px solid ${
-                theme.palette.mode === 'dark'
-                  ? 'rgba(255, 255, 255, 0.05)'
-                  : 'rgba(0, 0, 0, 0.05)'
+              `1px solid ${theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.05)'
+                : 'rgba(0, 0, 0, 0.05)'
               }`,
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'row' },
@@ -138,10 +247,7 @@ export function Footer() {
           }}
         >
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            © {currentYear} QuickCompare. All rights reserved.
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Made with ❤️ in India
+            © {currentYear} Quickchecky. All rights reserved.
           </Typography>
         </Box>
       </Container>

@@ -22,10 +22,9 @@ export function Header() {
             : 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(20px)',
         borderBottom: (theme) =>
-          `1px solid ${
-            theme.palette.mode === 'dark'
-              ? 'rgba(255, 255, 255, 0.05)'
-              : 'rgba(0, 0, 0, 0.05)'
+          `1px solid ${theme.palette.mode === 'dark'
+            ? 'rgba(255, 255, 255, 0.05)'
+            : 'rgba(0, 0, 0, 0.05)'
           }`,
       }}
     >
@@ -35,7 +34,7 @@ export function Header() {
           animate={{ opacity: 1, x: 0 }}
           sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
         >
-          <Box
+          {/* <Box
             sx={{
               width: 40,
               height: 40,
@@ -45,9 +44,17 @@ export function Header() {
               alignItems: 'center',
               justifyContent: 'center',
             }}
-          >
-            <ShoppingCart sx={{ color: 'white', fontSize: 22 }} />
-          </Box>
+          > */}
+            <img
+              src="/logo.png"
+              alt="Logo"
+              style={{
+                width: 22,
+                height: 22,
+                objectFit: 'contain',
+              }}
+            />
+          {/* </Box> */}
           <Typography
             variant="h6"
             sx={{
@@ -57,7 +64,7 @@ export function Header() {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            QuickCompare
+            Quickchecky
           </Typography>
         </MotionBox>
 
@@ -115,8 +122,10 @@ export function Header() {
               </AnimatePresence>
             </MotionIconButton>
           </Tooltip>
-          
+
           <Button
+                                href="https://play.google.com/store/apps/details?id=com.pratikostwal.quickcommercecompare"
+                      target="_blank"
             variant="contained"
             sx={{
               background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',

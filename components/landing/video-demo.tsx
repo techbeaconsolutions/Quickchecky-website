@@ -4,6 +4,9 @@ import { Box, Container, Typography, IconButton } from '@mui/material';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { PlayArrow, Pause, VolumeUp, VolumeOff } from '@mui/icons-material';
+import { useThemeMode } from '@/components/theme-provider';
+import { AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 
 const MotionBox = motion.create(Box);
 
@@ -14,6 +17,7 @@ export function VideoDemo() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
+
   const togglePlay = () => {
     if (videoRef.current) {
       if (isPlaying) {
@@ -21,7 +25,7 @@ export function VideoDemo() {
       } else {
         videoRef.current.play();
       }
-      setIsPlaying(!isPlaying);
+      setIsPlaying(videoRef.current.paused === false);
     }
   };
 
@@ -31,6 +35,19 @@ export function VideoDemo() {
       setIsMuted(!isMuted);
     }
   };
+
+  const { mode } = useThemeMode();
+
+  const videoSrc =
+    mode === 'dark'
+      ? '/dark-video.mp4'
+      : '/light-video.mp4';
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [videoSrc]);
 
   return (
     <Box
@@ -119,13 +136,27 @@ export function VideoDemo() {
             display: 'flex',
             justifyContent: 'center',
             perspective: '1000px',
+            width: '100%',
+            position: 'relative',
           }}
         >
           {/* Phone Frame with Video */}
           <Box
             sx={{
-              width: { xs: 280, sm: 320, md: 360 },
-              height: { xs: 560, sm: 640, md: 720 },
+              width: {
+                xs: '78vw',
+                sm: '58vw',
+                md: '32vw',
+                lg: '24vw',
+              },
+
+              maxWidth: '390px',
+
+              aspectRatio: '9 / 19.5',
+
+              maxHeight: '92vh',
+
+              mx: 'auto',
               borderRadius: '40px',
               background: (theme) =>
                 theme.palette.mode === 'dark'
@@ -154,16 +185,16 @@ export function VideoDemo() {
             {/* Notch */}
             <Box
               sx={{
-                position: 'absolute',
-                top: 8,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 100,
-                height: 28,
-                borderRadius: '20px',
-                background: '#0a0a0f',
-                zIndex: 20,
-              }}
+    position: 'absolute',
+    top: 14,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: 12,
+    height: 12,
+    borderRadius: '50%',
+    background: '#1a1a1a',
+    zIndex: 10,
+  }}
             />
 
             {/* Video Content */}
@@ -179,19 +210,20 @@ export function VideoDemo() {
               }}
             >
               <video
+                key={videoSrc}
                 ref={videoRef}
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design-MucHlxxqwzO78LLQr19toQpz0LsWhC.mp4"
-                loop
                 muted={isMuted}
                 playsInline
+                preload="metadata"
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
+                  borderRadius: '24px',
                 }}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              />
+              >
+                <source src={videoSrc} type="video/mp4" />
+              </video>
 
               {/* Video Controls Overlay */}
               <Box
@@ -223,19 +255,7 @@ export function VideoDemo() {
                 >
                   {isPlaying ? <Pause sx={{ fontSize: 28 }} /> : <PlayArrow sx={{ fontSize: 28 }} />}
                 </IconButton>
-                <IconButton
-                  onClick={toggleMute}
-                  sx={{
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    backdropFilter: 'blur(10px)',
-                    color: 'white',
-                    '&:hover': {
-                      background: 'rgba(255, 255, 255, 0.3)',
-                    },
-                  }}
-                >
-                  {isMuted ? <VolumeOff /> : <VolumeUp />}
-                </IconButton>
+
               </Box>
             </Box>
 

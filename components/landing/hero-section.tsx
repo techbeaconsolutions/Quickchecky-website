@@ -46,7 +46,7 @@ export function HeroSection() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   const title = 'Compare Grocery Prices';
-  
+
   return (
     <Box
       ref={containerRef}
@@ -74,48 +74,9 @@ export function HeroSection() {
           >
             {/* Left Content */}
             <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, position: 'relative' }}>
-              {/* Floating badges */}
-              <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
-                {badges.map((badge, index) => (
-                  <MotionBox
-                    key={badge.text}
-                    initial={{ opacity: 0, x: -50, y: 20 }}
-                    animate={{ opacity: 1, x: 0, y: 0 }}
-                    transition={{ delay: 0.8 + index * 0.15, duration: 0.5 }}
-                    sx={{
-                      position: 'absolute',
-                      left: index === 1 ? -80 : index === 2 ? -40 : -60,
-                      top: index === 0 ? 0 : index === 1 ? 120 : 240,
-                    }}
-                  >
-                    <motion.div
-                      animate={{ y: [0, -10, 0] }}
-                      transition={{ 
-                        duration: 3 + index * 0.5, 
-                        repeat: Infinity, 
-                        ease: 'easeInOut',
-                        delay: index * 0.3,
-                      }}
-                    >
-                      <Chip
-                        icon={badge.icon}
-                        label={badge.text}
-                        sx={{
-                          background: isDark 
-                            ? `rgba(${badge.color === '#A78BFA' ? '167,139,250' : badge.color === '#22D3EE' ? '34,211,238' : '52,211,153'}, 0.15)`
-                            : `rgba(${badge.color === '#A78BFA' ? '167,139,250' : badge.color === '#22D3EE' ? '34,211,238' : '52,211,153'}, 0.1)`,
-                          border: `1px solid ${badge.color}40`,
-                          color: badge.color,
-                          backdropFilter: 'blur(10px)',
-                          '& .MuiChip-icon': { color: badge.color },
-                        }}
-                      />
-                    </motion.div>
-                  </MotionBox>
-                ))}
-              </Box>
 
-              <MotionBox
+
+              {/* <MotionBox
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -140,7 +101,7 @@ export function HeroSection() {
                 >
                   SMART GROCERY SHOPPING
                 </Typography>
-              </MotionBox>
+              </MotionBox> */}
 
               {/* Animated title */}
               <Box sx={{ mb: 3, overflow: 'hidden' }}>
@@ -150,6 +111,7 @@ export function HeroSection() {
                   sx={{
                     color: 'text.primary',
                     display: 'flex',
+                    fontSize: { xs: '2.5rem', md: '3.5rem' },
                     flexWrap: 'wrap',
                     justifyContent: { xs: 'center', md: 'flex-start' },
                   }}
@@ -160,7 +122,6 @@ export function HeroSection() {
                       custom={index}
                       initial="hidden"
                       animate="visible"
-                      variants={letterAnimation}
                       style={{ display: char === ' ' ? 'inline' : 'inline-block' }}
                     >
                       {char === ' ' ? '\u00A0' : char}
@@ -203,7 +164,7 @@ export function HeroSection() {
                   lineHeight: 1.8,
                 }}
               >
-                Find the cheapest prices across Blinkit, Zepto & Instamart in seconds. 
+                Find the cheapest prices across Blinkit, Zepto & Instamart in seconds.
                 Save money on every grocery order with real-time price comparison.
               </MotionTypography>
 
@@ -215,9 +176,9 @@ export function HeroSection() {
                 <Stack
                   direction={{ xs: 'column', sm: 'row' }}
                   spacing={2}
-                  justifyContent={{ xs: 'center', md: 'flex-start' }}
+                  sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}
                 >
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button
                       variant="contained"
                       size="large"
@@ -239,14 +200,19 @@ export function HeroSection() {
                     >
                       App Store
                     </Button>
-                  </motion.div>
+                  </motion.div> */}
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button
                       variant="outlined"
                       size="large"
                       startIcon={<Android />}
+                      href="https://play.google.com/store/apps/details?id=com.pratikostwal.quickcommercecompare"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       sx={{
-                        borderColor: isDark ? 'rgba(167, 139, 250, 0.5)' : 'rgba(139, 92, 246, 0.5)',
+                        borderColor: isDark
+                          ? 'rgba(167, 139, 250, 0.5)'
+                          : 'rgba(139, 92, 246, 0.5)',
                         borderWidth: 2,
                         color: 'primary.main',
                         px: 4,
@@ -254,10 +220,14 @@ export function HeroSection() {
                         fontSize: '1rem',
                         borderRadius: 3,
                         backdropFilter: 'blur(10px)',
-                        background: isDark ? 'rgba(167, 139, 250, 0.05)' : 'rgba(139, 92, 246, 0.05)',
+                        background: isDark
+                          ? 'rgba(167, 139, 250, 0.05)'
+                          : 'rgba(139, 92, 246, 0.05)',
                         '&:hover': {
                           borderColor: 'primary.main',
-                          background: isDark ? 'rgba(167, 139, 250, 0.15)' : 'rgba(139, 92, 246, 0.1)',
+                          background: isDark
+                            ? 'rgba(167, 139, 250, 0.15)'
+                            : 'rgba(139, 92, 246, 0.1)',
                           borderWidth: 2,
                         },
                         transition: 'all 0.3s ease',
@@ -282,8 +252,8 @@ export function HeroSection() {
                 }}
               >
                 {[
-                  { value: '50K+', label: 'Active Users' },
-                  { value: '2Cr+', label: 'Saved Monthly', prefix: '₹' },
+                  { value: '5K+', label: 'Active Users' },
+                  { value: '20k+', label: 'Saved Monthly', prefix: '₹' },
                   { value: '4.8', label: 'App Rating' },
                 ].map((stat, index) => (
                   <motion.div
@@ -302,10 +272,10 @@ export function HeroSection() {
                         border: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
                       }}
                     >
-                      <Typography 
-                        variant="h4" 
-                        sx={{ 
-                          fontWeight: 700, 
+                      <Typography
+                        variant="h4"
+                        sx={{
+                          fontWeight: 700,
                           background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
                           WebkitBackgroundClip: 'text',
                           WebkitTextFillColor: 'transparent',
@@ -321,6 +291,55 @@ export function HeroSection() {
                 ))}
               </MotionBox>
             </Box>
+
+
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: .5,
+                mt: { xs: 4, md: 58 },
+                textAlign: 'center',
+              }}
+            >
+              <Typography variant="caption" sx={{ color: 'text.secondary', letterSpacing: 2 }}>
+                SCROLL
+              </Typography>
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <Box
+                  sx={{
+                    width: 24,
+                    height: 40,
+                    borderRadius: 12,
+                    border: `2px solid ${isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'}`,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    pt: 1,
+                  }}
+                >
+                  <motion.div
+                    animate={{ y: [0, 12, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <Box
+                      sx={{
+                        width: 4,
+                        height: 8,
+                        borderRadius: 2,
+                        background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
+                      }}
+                    />
+                  </motion.div>
+                </Box>
+              </motion.div>
+            </Box>
+
 
             {/* Right Content - Phone Mockup with Parallax */}
             <MotionBox
@@ -373,40 +392,7 @@ export function HeroSection() {
           gap: 1,
         }}
       >
-        <Typography variant="caption" sx={{ color: 'text.secondary', letterSpacing: 2 }}>
-          SCROLL
-        </Typography>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <Box
-            sx={{
-              width: 24,
-              height: 40,
-              borderRadius: 12,
-              border: `2px solid ${isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'}`,
-              display: 'flex',
-              justifyContent: 'center',
-              pt: 1,
-            }}
-          >
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <Box
-                sx={{
-                  width: 4,
-                  height: 8,
-                  borderRadius: 2,
-                  background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
-                }}
-              />
-            </motion.div>
-          </Box>
-        </motion.div>
       </MotionBox>
-    </Box>
+    </Box >
   );
 }

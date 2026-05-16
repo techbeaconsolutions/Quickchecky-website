@@ -12,7 +12,7 @@ const MotionTypography = motion.create(Typography);
 const stats = [
   {
     icon: Groups,
-    value: '50,000+',
+    value: '500+',
     label: 'Active Users',
     gradient: 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%)',
   },
@@ -24,7 +24,7 @@ const stats = [
   },
   {
     icon: TrendingUp,
-    value: '₹2Cr+',
+    value: '₹2k+',
     label: 'Saved Monthly',
     gradient: 'linear-gradient(135deg, #34D399 0%, #10B981 100%)',
   },
@@ -101,7 +101,7 @@ export function TrustSection() {
             variant="body1"
             sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}
           >
-            Join thousands of smart shoppers who are already saving money on their 
+            Join thousands of smart shoppers who are already saving money on their
             daily groceries with Quick Commerce Compare
           </Typography>
         </MotionBox>
@@ -147,15 +147,14 @@ export function TrustSection() {
                     justifyContent: 'center',
                     mx: 'auto',
                     mb: 2,
-                    boxShadow: `0 10px 30px ${
-                      idx === 0
+                    boxShadow: `0 10px 30px ${idx === 0
                         ? 'rgba(167, 139, 250, 0.3)'
                         : idx === 1
-                        ? 'rgba(34, 211, 238, 0.3)'
-                        : idx === 2
-                        ? 'rgba(52, 211, 153, 0.3)'
-                        : 'rgba(244, 114, 182, 0.3)'
-                    }`,
+                          ? 'rgba(34, 211, 238, 0.3)'
+                          : idx === 2
+                            ? 'rgba(52, 211, 153, 0.3)'
+                            : 'rgba(244, 114, 182, 0.3)'
+                      }`,
                   }}
                 >
                   <stat.icon sx={{ fontSize: 28, color: 'white' }} />

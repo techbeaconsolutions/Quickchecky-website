@@ -21,6 +21,16 @@ export function useThemeMode() {
   return context;
 }
 
+export function useThemeContext() {
+  const { mode, toggleMode } = useThemeMode();
+
+  return {
+    mode,
+    toggleMode,
+    isDark: mode === 'dark',
+  };
+}
+
 interface ThemeProviderProps {
   children: ReactNode;
 }

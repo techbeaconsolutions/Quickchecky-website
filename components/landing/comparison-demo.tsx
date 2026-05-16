@@ -8,6 +8,7 @@ import { TrendingDown, LocalOffer } from '@mui/icons-material';
 import { useThemeMode } from '@/components/theme-provider';
 
 const MotionBox = motion.create(Box);
+const MotionImg = motion.create('img');
 
 // Theme-specific product screenshots
 const productScreenshots = {
@@ -137,20 +138,20 @@ function FloatingProductPhone() {
         transition: 'transform 0.3s ease',
       }}
     >
-      {/* Notch */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 6,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 60,
-          height: 18,
-          borderRadius: '10px',
-          background: '#0a0a0f',
-          zIndex: 10,
-        }}
-      />
+      {/* Small Camera Dot */}
+<Box
+  sx={{
+    position: 'absolute',
+    top: 14,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: 12,
+    height: 12,
+    borderRadius: '50%',
+    background: '#1a1a1a',
+    zIndex: 10,
+  }}
+/>
 
       {/* Screen Content - Product Detail Screenshot with Crossfade */}
       <Box
@@ -165,16 +166,15 @@ function FloatingProductPhone() {
         }}
       >
         <AnimatePresence mode="wait">
-          <MotionBox
+          <MotionImg
             key={mode}
-            component="img"
             src={screenshotUrl}
             alt="Product Details"
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            sx={{
+            style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',

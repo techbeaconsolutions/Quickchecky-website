@@ -34,7 +34,7 @@ export default function LandingPage() {
       <AnimatedBackground />
       
       {/* 3D floating elements */}
-      <ThreeDBackground />
+      {/* <ThreeDBackground /> */}
       
       {/* Mouse follower effect */}
       <MouseFollower />
@@ -45,11 +45,21 @@ export default function LandingPage() {
         <HeroSection />
         <VideoDemo />
         <ComparisonDemo />
-        <HowItWorks />
-        <FeaturesSection />
-        <ScreenshotsSection />
-        <TrustSection />
-        <CTASection />
+        <Box id="how-it-works" sx={{ scrollMarginTop: 96 }}>
+          <HowItWorks />
+        </Box>
+        <Box id="features" sx={{ scrollMarginTop: 96 }}>
+          <FeaturesSection />
+        </Box>
+        <Box id="screenshots" sx={{ scrollMarginTop: 96 }}>
+          <ScreenshotsSection />
+        </Box>
+        <Box id="trust" sx={{ scrollMarginTop: 96 }}>
+          <TrustSection />
+        </Box>
+        <Box id="download" sx={{ scrollMarginTop: 96 }}>
+          <CTASection />
+        </Box>
         <Footer />
       </Box>
     </Box>

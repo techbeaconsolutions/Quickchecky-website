@@ -58,19 +58,20 @@ export function PhoneMockup() {
       }}
     >
       {/* Notch */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 100,
-          height: 28,
-          borderRadius: '20px',
-          background: '#0a0a0f',
-          zIndex: 10,
-        }}
-      />
+      {/* Small Camera Dot */}
+<Box
+  sx={{
+    position: 'absolute',
+    top: 14,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: 12,
+    height: 12,
+    borderRadius: '50%',
+    background: '#1a1a1a',
+    zIndex: 10,
+  }}
+/>
 
       {/* Screen Content - Real Screenshot with Crossfade */}
       <Box

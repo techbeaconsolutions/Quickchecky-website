@@ -37,10 +37,10 @@ export function CTASection() {
   const { isDark } = useThemeContext();
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
-  
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
+
   const springConfig = { stiffness: 150, damping: 30 };
   const rotateX = useSpring(useTransform(mouseY, [-300, 300], [5, -5]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-5, 5]), springConfig);
@@ -266,7 +266,7 @@ export function CTASection() {
                     px: 3,
                     py: 1,
                     borderRadius: 3,
-                    background: isDark 
+                    background: isDark
                       ? 'rgba(52, 211, 153, 0.15)'
                       : 'rgba(16, 185, 129, 0.1)',
                     border: `1px solid rgba(52, 211, 153, 0.3)`,
@@ -320,44 +320,21 @@ export function CTASection() {
                   lineHeight: 1.8,
                 }}
               >
-                Download Quick Commerce Compare and never overpay for groceries again. 
-                Join 50,000+ smart shoppers across India.
+                Download Quick Commerce Compare and never overpay for groceries again.
+                Join 500+ smart shoppers across India.
               </Typography>
 
               <Stack
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={3}
-                justifyContent="center"
+                // direction={{ xs: 'column', sm: 'row' }}
+                spacing={0}
+                sx={{ justifyContent: 'center' }}
               >
                 <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
                   <Button
                     variant="contained"
                     size="large"
-                    startIcon={<Apple />}
-                    endIcon={<ArrowForward />}
-                    sx={{
-                      background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
-                      color: 'white',
-                      px: 5,
-                      py: 2,
-                      fontSize: '1.1rem',
-                      fontWeight: 600,
-                      borderRadius: 3,
-                      boxShadow: '0 10px 40px rgba(167, 139, 250, 0.4)',
-                      '&:hover': {
-                        background: 'linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)',
-                        boxShadow: '0 20px 60px rgba(167, 139, 250, 0.5)',
-                      },
-                      transition: 'all 0.3s ease',
-                    }}
-                  >
-                    Download for iOS
-                  </Button>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    variant="contained"
-                    size="large"
+                    href="https://play.google.com/store/apps/details?id=com.pratikostwal.quickcommercecompare"
+                    target="_blank"
                     startIcon={<Android />}
                     endIcon={<ArrowForward />}
                     sx={{
@@ -384,7 +361,7 @@ export function CTASection() {
               <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap' }}>
                 {[
                   { label: 'Free Download', icon: Download },
-                  { label: 'No Ads', icon: Star },
+                  // { label: 'No Ads', icon: Star },
                   { label: 'Save 30%+', icon: TrendingUp },
                 ].map((item, index) => (
                   <motion.div
