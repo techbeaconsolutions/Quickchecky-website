@@ -9,9 +9,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Quickchecky',
+    metadataBase: new URL("https://quickchecky.com"),
+  title: "QuickChecky",
   description:
-    'Compare prices across Blinkit, Zepto, Instamart and more with Quickchecky.',
+    "Compare grocery prices across Blinkit, Zepto, Instamart and more.",
+  keywords: [
+    "Blinkit",
+    "Zepto",
+    "Instamart",
+    "Quick commerce",
+    "Price comparison",
+    "Grocery comparison India",
+  ],
 };
 
 export const viewport: Viewport = {
