@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Quick Commerce Compare - Compare Grocery Prices Instantly',
+  title: 'Quickchecky',
   description:
-    'Find the cheapest prices across Blinkit, Zepto & Instamart in seconds. Save money on every grocery order with real-time price comparison.',
+    'Compare prices across Blinkit, Zepto, Instamart and more with Quickchecky.',
 };
 
 export const viewport: Viewport = {

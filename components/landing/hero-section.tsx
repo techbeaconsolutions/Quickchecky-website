@@ -260,7 +260,7 @@ export function HeroSection() {
                     key={stat.label}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ delay: 1 + index * 0.1, type: 'spring', stiffness: 200 }}
+                    transition={{ delay: 1 + index * 0.1, ease: 'easeOut' }}
                   >
                     <Box
                       sx={{
@@ -310,7 +310,7 @@ export function HeroSection() {
               </Typography>
               <motion.div
                 animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+                transition={{ duration: 1.5,  }}
               >
                 <Box
                   sx={{
@@ -325,7 +325,7 @@ export function HeroSection() {
                 >
                   <motion.div
                     animate={{ y: [0, 12, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                    transition={{ duration: 1.5,  }}
                   >
                     <Box
                       sx={{

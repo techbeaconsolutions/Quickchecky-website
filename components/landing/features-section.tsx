@@ -150,7 +150,7 @@ function Feature3DCard({ feature, index, isInView }: {
               y: [-2, 2, -2],
               rotate: [0, 5, -5, 0],
             } : {}}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ ease: 'easeInOut' }}
             style={{ transformStyle: 'preserve-3d', transform: 'translateZ(40px)' }}
           >
             <Box
