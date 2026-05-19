@@ -40,8 +40,8 @@ export function VideoDemo() {
 
   const videoSrc =
     mode === 'dark'
-      ? '/dark-video.mp4'
-      : '/light-video.mp4';
+      ? '/dark-video.webm'
+      : '/light-video.webm';
 
   useEffect(() => {
     if (videoRef.current) {
@@ -185,34 +185,54 @@ export function VideoDemo() {
             {/* Notch */}
             <Box
               sx={{
-    position: 'absolute',
-    top: 14,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: 12,
-    height: 12,
-    borderRadius: '50%',
-    background: '#1a1a1a',
-    zIndex: 10,
-  }}
+                position: 'absolute',
+                top: 14,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 12,
+                height: 12,
+                borderRadius: '50%',
+                background: '#1a1a1a',
+                zIndex: 10,
+              }}
             />
 
             {/* Video Content */}
+
+
             <Box
               sx={{
-                position: 'absolute',
-                top: 8,
-                left: 8,
-                right: 8,
-                bottom: 8,
-                borderRadius: '32px',
+                position: 'relative',
+                width: '100%',
+                height: '100%',
                 overflow: 'hidden',
+                borderRadius: '24px',
               }}
             >
+              {/* Preview Image */}
+              {!isPlaying && (
+                <Box
+                  component="img"
+                  // src="/images/video-preview.webp"
+                  // alt="Video Preview"
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    zIndex: 2,
+                  }}
+                />
+              )}
+
+              {/* Video */}
               <video
                 key={videoSrc}
                 ref={videoRef}
-                muted={isMuted}
+                muted
+                loop
                 playsInline
                 preload="metadata"
                 style={{
@@ -222,21 +242,53 @@ export function VideoDemo() {
                   borderRadius: '24px',
                 }}
               >
+                <source src={videoSrc.replace('.mp4', '.webm')} type="video/webm" />
                 <source src={videoSrc} type="video/mp4" />
               </video>
 
+              {/* Controls */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 20,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  zIndex: 3,
+                }}
+              >
+                <IconButton
+                  onClick={togglePlay}
+                  sx={{
+                    background: 'linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%)',
+                    color: 'white',
+                    width: 56,
+                    height: 56,
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  {isPlaying ? (
+                    <Pause sx={{ fontSize: 28 }} />
+                  ) : (
+                    <PlayArrow sx={{ fontSize: 28 }} />
+                  )}
+                </IconButton>
+              </Box>
               {/* Video Controls Overlay */}
               <Box
                 sx={{
                   position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                  p: 2,
+                  bottom: 20,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
                   display: 'flex',
                   justifyContent: 'center',
-                  gap: 2,
+                  zIndex: 3,
                 }}
               >
                 <IconButton
