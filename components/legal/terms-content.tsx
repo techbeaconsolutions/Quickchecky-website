@@ -312,7 +312,7 @@ export function TermsContent() {
             borderRadius: '28px',
             p: { xs: 3, md: 5 },
             border: '1px solid rgba(0,0,0,0.06)',
-            backdropFilter: 'blur(10px)',
+            backdropFilter: 'blur(2px)',
             background: 'rgba(255,255,255,0.95)',
           }}
         >

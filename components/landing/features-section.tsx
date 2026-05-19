@@ -106,7 +106,7 @@ function Feature3DCard({ feature, index, isInView }: {
             background: isDark 
               ? 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)'
               : 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(5px)',
             border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`,
             boxShadow: isHovered 
               ? `0 25px 50px -12px ${feature.shadowColor}, 0 0 0 1px ${feature.shadowColor}`

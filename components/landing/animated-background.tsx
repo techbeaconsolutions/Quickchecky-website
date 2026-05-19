@@ -28,10 +28,9 @@ export function AnimatedBackground() {
         animate={{
           x: [0, 100, 50, 0],
           y: [0, 50, 100, 0],
-          scale: [1, 1.2, 0.9, 1],
         }}
         transition={{
-          duration: 20,
+          duration: 40,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
@@ -39,13 +38,13 @@ export function AnimatedBackground() {
           position: 'absolute',
           top: '10%',
           left: '10%',
-          width: 600,
-          height: 600,
+width: 320,
+height: 320,
           borderRadius: '50%',
           background: isDark
             ? 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%)'
             : 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          filter: 'blur(15px)',
         }}
       />
       
@@ -70,7 +69,7 @@ export function AnimatedBackground() {
           background: isDark
             ? 'radial-gradient(circle, rgba(34, 211, 238, 0.25) 0%, transparent 70%)'
             : 'radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          filter: 'blur(15px)',
         }}
       />
       
@@ -95,7 +94,7 @@ export function AnimatedBackground() {
           background: isDark
             ? 'radial-gradient(circle, rgba(244, 114, 182, 0.2) 0%, transparent 70%)'
             : 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          filter: 'blur(15px)',
         }}
       />
 
@@ -113,7 +112,7 @@ export function AnimatedBackground() {
             : `linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
                linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
-          opacity: 0.5,
+          opacity: 0.2,
         }}
       />
 

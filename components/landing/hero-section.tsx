@@ -219,7 +219,7 @@ export function HeroSection() {
                         py: 1.5,
                         fontSize: '1rem',
                         borderRadius: 3,
-                        backdropFilter: 'blur(10px)',
+                        backdropFilter: 'blur(2px)',
                         background: isDark
                           ? 'rgba(167, 139, 250, 0.05)'
                           : 'rgba(139, 92, 246, 0.05)',
@@ -268,7 +268,7 @@ export function HeroSection() {
                         p: 2,
                         borderRadius: 2,
                         background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
-                        backdropFilter: 'blur(10px)',
+                        backdropFilter: 'blur(2px)',
                         border: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
                       }}
                     >
@@ -361,7 +361,7 @@ export function HeroSection() {
                   height: 300,
                   borderRadius: '50%',
                   background: 'radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, transparent 70%)',
-                  filter: 'blur(60px)',
+                  filter: 'blur(15px)',
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',

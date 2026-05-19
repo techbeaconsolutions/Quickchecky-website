@@ -177,7 +177,7 @@ export function HowItWorks() {
             theme.palette.mode === 'dark'
               ? 'radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%)'
               : 'radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%)',
-          filter: 'blur(100px)',
+          filter: 'blur(2px)',
           pointerEvents: 'none',
         }}
       />

@@ -20,7 +20,7 @@ export function Header() {
           theme.palette.mode === 'dark'
             ? 'rgba(10, 10, 15, 0.8)'
             : 'rgba(255, 255, 255, 0.8)',
-        backdropFilter: 'blur(20px)',
+        backdropFilter: 'blur(5px)',
         borderBottom: (theme) =>
           `1px solid ${theme.palette.mode === 'dark'
             ? 'rgba(255, 255, 255, 0.05)'

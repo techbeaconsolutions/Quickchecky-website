@@ -212,7 +212,7 @@ function FloatingProductPhone() {
             theme.palette.mode === 'dark'
               ? 'radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%)'
               : 'radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%)',
-          filter: 'blur(40px)',
+          filter: 'blur(10px)',
           zIndex: -1,
           pointerEvents: 'none',
         }}

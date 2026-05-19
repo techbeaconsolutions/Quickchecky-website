@@ -69,7 +69,7 @@ export function VideoDemo() {
           height: 500,
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%)',
-          filter: 'blur(80px)',
+          filter: 'blur(20px)',
           pointerEvents: 'none',
         }}
       />
@@ -82,7 +82,7 @@ export function VideoDemo() {
           height: 600,
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(34, 211, 238, 0.12) 0%, transparent 70%)',
-          filter: 'blur(100px)',
+          filter: 'blur(2px)',
           pointerEvents: 'none',
         }}
       />
@@ -341,7 +341,7 @@ export function VideoDemo() {
                 theme.palette.mode === 'dark'
                   ? 'radial-gradient(ellipse, rgba(167, 139, 250, 0.25) 0%, transparent 70%)'
                   : 'radial-gradient(ellipse, rgba(34, 211, 238, 0.2) 0%, transparent 70%)',
-              filter: 'blur(60px)',
+              filter: 'blur(15px)',
               zIndex: -1,
               pointerEvents: 'none',
             }}

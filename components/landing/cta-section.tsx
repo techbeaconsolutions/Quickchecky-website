@@ -218,7 +218,7 @@ export function CTASection() {
                 background: isDark
                   ? 'linear-gradient(135deg, rgba(30, 30, 46, 0.8) 0%, rgba(20, 20, 35, 0.9) 100%)'
                   : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)',
-                backdropFilter: 'blur(40px)',
+                backdropFilter: 'blur(10px)',
                 borderRadius: '40px',
                 border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(139, 92, 246, 0.1)'}`,
                 boxShadow: isDark
@@ -248,7 +248,7 @@ export function CTASection() {
                   width: 400,
                   height: 200,
                   background: 'radial-gradient(ellipse, rgba(167, 139, 250, 0.3) 0%, transparent 70%)',
-                  filter: 'blur(40px)',
+                  filter: 'blur(10px)',
                   pointerEvents: 'none',
                 }}
               />

@@ -28,7 +28,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
             theme.palette.mode === 'dark'
               ? 'rgba(30, 30, 46, 0.6)'
               : 'rgba(255, 255, 255, 0.7)',
-          backdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(5px)',
           borderRadius: '20px',
           border: (theme) =>
             `1px solid ${
