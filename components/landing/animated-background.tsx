@@ -17,7 +17,7 @@ export function AnimatedBackground() {
         height: '100%',
         zIndex: 0,
         overflow: 'hidden',
-        background: isDark 
+        background: isDark
           ? 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f1a 100%)'
           : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)',
         transition: 'background 0.5s ease',
@@ -26,33 +26,34 @@ export function AnimatedBackground() {
       {/* Animated gradient orbs */}
       <motion.div
         animate={{
-          x: [0, 100, 50, 0],
+          x: [0, 25, 10, 0],
           y: [0, 50, 100, 0],
         }}
         transition={{
-          duration: 40,
+          duration: 60,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
         style={{
+          willChange: 'transform',
+          transform: 'translate3d(0,0,0)',
           position: 'absolute',
           top: '10%',
           left: '10%',
-width: 320,
-height: 320,
+          width: 320,
+          height: 320,
           borderRadius: '50%',
           background: isDark
             ? 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%)'
             : 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
-          filter: 'blur(15px)',
+          filter: 'blur(8px)',
         }}
       />
-      
+
       <motion.div
         animate={{
           x: [0, -80, -40, 0],
           y: [0, 80, 40, 0],
-          scale: [1, 0.8, 1.1, 1],
         }}
         transition={{
           duration: 25,
@@ -60,6 +61,8 @@ height: 320,
           ease: 'easeInOut',
         }}
         style={{
+          willChange: 'transform',
+          transform: 'translate3d(0,0,0)',
           position: 'absolute',
           top: '40%',
           right: '5%',
@@ -69,15 +72,15 @@ height: 320,
           background: isDark
             ? 'radial-gradient(circle, rgba(34, 211, 238, 0.25) 0%, transparent 70%)'
             : 'radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%)',
-          filter: 'blur(15px)',
+          filter: 'blur(8px)',
         }}
       />
-      
+
       <motion.div
+
         animate={{
           x: [0, 60, -30, 0],
           y: [0, -60, -30, 0],
-          scale: [1, 1.1, 0.95, 1],
         }}
         transition={{
           duration: 18,
@@ -85,6 +88,8 @@ height: 320,
           ease: 'easeInOut',
         }}
         style={{
+          willChange: 'transform',
+          transform: 'translate3d(0,0,0)',
           position: 'absolute',
           bottom: '10%',
           left: '30%',
@@ -94,7 +99,7 @@ height: 320,
           background: isDark
             ? 'radial-gradient(circle, rgba(244, 114, 182, 0.2) 0%, transparent 70%)'
             : 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%)',
-          filter: 'blur(15px)',
+          filter: 'blur(8px)',
         }}
       />
 
@@ -112,7 +117,7 @@ height: 320,
             : `linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
                linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
-          opacity: 0.2,
+          opacity: 0.08,
         }}
       />
 
